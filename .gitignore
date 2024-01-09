@@ -1,0 +1,9 @@
+# local environment settings
+.env
+
+# generated repo files
+repos/
+
+# NodeJS ignores
+node_modules/
+npm-debug.log
