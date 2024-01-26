@@ -1,9 +1,12 @@
 # local environment settings
 .env
 
-# generated repo files
-repos/
+# generated files
+.github/repos/
+.github/settings.yml
 
 # NodeJS ignores
 node_modules/
 npm-debug.log
+
+.vscode/
