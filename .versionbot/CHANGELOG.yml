@@ -1,0 +1,13 @@
+- commits:
+    - subject: Add support for exporting rulesets
+      hash: 84a0d5e237513b2a41bb70c55c2ba0af67bec2a1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.2
+  title: ""
+  date: 2024-02-01T23:11:55.281Z
