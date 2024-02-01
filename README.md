@@ -1,8 +1,17 @@
-# probot-get-repo-settings
+# safe-settings-bootstrap
 
-Generate repository settings files where they differ from [safe-settings](https://github.com/github/safe-settings) organization defaults.
+Bootstrap organization-level [safe-settings](https://github.com/github/safe-settings) manifests.
 
-This is useful for importing a current snapshot of all repo settings as repo/*.yml files
-so it can be enabled org-wide without changing any repo settings.
+Create manifests following the balena opinionated defaults for repository settings across an entire org
+without losing existing branch protection checks.
 
-A GitHub PAT with admin:read for the org and repos is required.
+Either export the env vars or create an `.env` with the following content:
+
+```bash
+# GitHub PAT with org:admin:read and repo:admin:read
+GITHUB_TOKEN=ghp_abcdefghijklmnopqrstuvwxyz
+# Organization name
+ORG_NAME=balena-io-experimental
+```
+
+Execute in the `<org>/.github` repository with `npmx safe-settings-bootstrap`.

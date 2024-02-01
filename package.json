@@ -1,20 +1,37 @@
 {
-  "name": "probot-get-repo-settings",
+  "name": "safe-settings-bootstrap",
   "version": "1.0.0",
-  "description": "Generate repository settings files where they differ from organization defaults",
-  "private": true,
+  "description": "Bootstrap organization-level safe-settings manifests",
+  "private": false,
   "main": "index.js",
+  "bin": "index.js",
+  "files": [
+    "assets/settings.yml"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "start": "npm run clean && node index.js",
+    "clean": "rimraf .github/repos/"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/product-os/safe-settings-bootstrap.git"
+  },
+  "keywords": [
+    "safe-settings",
+    "probot"
+  ],
+  "author": "Kyle Harding <kyle@balena.io>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/product-os/safe-settings-bootstrap/issues"
+  },
+  "homepage": "https://github.com/product-os/safe-settings-bootstrap#readme",
   "dependencies": {
     "dotenv": "^16.3.1",
-    "fs": "^0.0.1-security",
     "octokit": "^3.1.2",
     "probot": "^12.3.3",
+    "rimraf": "^5.0.5",
     "yaml": "^2.3.4"
   }
 }
