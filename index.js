@@ -54,6 +54,11 @@ async function processRepository(octokit, repoName) {
     return;
   }
 
+  if (['.github'].includes(repoData.data.name)) {
+    // Skip the .github repository
+    return;
+  }
+
   console.log(`Processing repository: ${repoName}`);
 
   try {
@@ -64,59 +69,6 @@ async function processRepository(octokit, repoName) {
     });
 
     const rulesetData = convertBranchProtectionToRuleset(protectionData.data);
-
-    // Check for 'Flowzone' in rules
-    const hasFlowzoneCheck = rulesetData.rules.some(
-      (rule) =>
-        rule.type === "required_status_checks" &&
-        rule.parameters.required_status_checks.some((check) =>
-          check.context.startsWith("Flowzone")
-        )
-    );
-
-    if (hasFlowzoneCheck) {
-      // Load the YAML document
-      const fileContents = fs.readFileSync(orgSettingsPath, "utf8");
-      const doc = yaml.parseDocument(fileContents);
-    
-      // Get the rulesets array
-      const rulesets = doc.get('rulesets');
-    
-      // Find the Flowzone ruleset
-      const flowzoneRuleset = rulesets.items.find(
-        (ruleset) => ruleset.get('name') === "Flowzone"
-      );
-    
-      // Get the 'include' YAMLSeq from the repository_name conditions
-      const includeSeq = flowzoneRuleset.getIn(['conditions', 'repository_name', 'include']);
-    
-      // Convert the YAMLSeq to a JavaScript array and check if the repoName is included
-      if (!includeSeq.toJSON().includes(repoName)) {
-
-        if (includeSeq.toJSON().length < 1) {
-          // replace the empty array with a bulleted list
-          flowzoneRuleset.deleteIn(['conditions', 'repository_name', 'include']);
-          flowzoneRuleset.addIn(['conditions', 'repository_name'], new yaml.Pair('include', [repoName]));
-        } else {
-          // Add the repository name to the include list
-          includeSeq.add(repoName);
-        }
-
-        // Write the updated document back to the file, preserving comments and formatting
-        fs.writeFileSync(orgSettingsPath, doc.toString(), "utf8");
-      }
-    }
-
-    // Exclude 'Flowzone' from the rulesetData rules before pushing it to rulesets
-    rulesetData.rules = rulesetData.rules.map((rule) => {
-      if (rule.type === "required_status_checks") {
-        rule.parameters.required_status_checks =
-          rule.parameters.required_status_checks.filter(
-            (check) => !check.context.startsWith("Flowzone")
-          );
-      }
-      return rule;
-    });
 
     // Remove 'policy-bot' contexts and filter out rules without contexts
     rulesetData.rules = rulesetData.rules
