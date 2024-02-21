@@ -1,4 +1,19 @@
 - commits:
+    - subject: Revert combining of Flowzone rulesets
+      hash: ef174bb8cc64e5f5a731c063510c0c06e6a5abf8
+      body: |
+        The GitHub Actions integration id can only be
+        matched at the repo level and not the org level.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.3
+  title: ""
+  date: 2024-02-21T00:26:54.367Z
+- commits:
     - subject: Add support for exporting rulesets
       hash: 84a0d5e237513b2a41bb70c55c2ba0af67bec2a1
       body: ""
