@@ -192,7 +192,7 @@ function convertBranchProtectionToRuleset(branchProtection) {
         required_status_checks:
           branchProtection.required_status_checks.checks.map((check) => ({
             context: check.context,
-            integration_id: check.app_id,
+            integration_id: check.app_id || 15368,
           })),
       },
     };
