@@ -1,4 +1,22 @@
 - commits:
+    - subject: Default to GitHub Actions integration ID when app_id is null
+      hash: a382925ea0b4280cc1d503d9ef8430ffd322fb91
+      body: |
+        On some repositories the current branch protections are returning
+        null for the app_id, possibly because the checks have not run recently.
+
+        For now we can default to the GHA integration ID and fix it
+        later if there is a mismatch and the check is from another source.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.4
+  title: ""
+  date: 2024-02-21T17:12:43.696Z
+- commits:
     - subject: Revert combining of Flowzone rulesets
       hash: ef174bb8cc64e5f5a731c063510c0c06e6a5abf8
       body: |
