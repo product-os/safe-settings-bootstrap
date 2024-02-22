@@ -1,4 +1,17 @@
 - commits:
+    - subject: Do not filter existing rulesets
+      hash: 79637e3f2f0900f694e0984688d42794b971b900
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.6
+  title: ""
+  date: 2024-02-22T19:20:28.671Z
+- commits:
     - subject: Process existing rulesets
       hash: 881ae9b070cef81f3fe30d736c105fb701633910
       body: ""
