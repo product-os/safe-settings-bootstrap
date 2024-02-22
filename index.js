@@ -108,10 +108,7 @@ async function processRepository(octokit, repoName) {
     });
 
     repoRulesets.data = repoRulesets.data.filter(
-      (ruleset) =>
-        ruleset.target === "branch" &&
-        ruleset.enforcement === "active" &&
-        !ruleset.name.startsWith("policy-bot:")
+      (ruleset) => !ruleset.name.startsWith("policy-bot:")
     );
 
     for (let i = 0; i < repoRulesets.data.length; ++i) {
