@@ -12,7 +12,7 @@ const org = process.env.ORG_NAME;
 const specificRepo = process.env.SPECIFIC_REPO; // Optionally set this to run on a single repo
 const reposDir = path.join(process.cwd(), ".github", "repos");
 const orgSettingsPath = path.join(process.cwd(), ".github", "settings.yml");
-const packageSettingsPath = path.join(__dirname, 'assets', 'settings.yml');
+const packageSettingsPath = path.join(__dirname, "assets", "settings.yml");
 
 // Apply throttling plugin to Octokit
 const ThrottledOctokit = ProbotOctokit.plugin(throttling);
@@ -34,7 +34,7 @@ const probot = new Probot({
           return true;
         }
       },
-      onSecondaryRateLimit: (retryAfter, options) => {
+      onSecondaryRateLimit: (_, options) => {
         console.warn(
           `Secondary rate limit hit for request ${options.method} ${options.url}`
         );
@@ -54,7 +54,7 @@ async function processRepository(octokit, repoName) {
     return;
   }
 
-  if (['.github'].includes(repoData.data.name)) {
+  if ([".github"].includes(repoData.data.name)) {
     // Skip the .github repository
     return;
   }
@@ -68,7 +68,7 @@ async function processRepository(octokit, repoName) {
       branch: repoData.data.default_branch,
     });
 
-    const rulesetData = convertBranchProtectionToRuleset(protectionData.data);
+    const rulesetData = protectionDataToRuleset(protectionData.data);
 
     // Remove 'policy-bot' contexts and filter out rules without contexts
     rulesetData.rules = rulesetData.rules
@@ -97,8 +97,43 @@ async function processRepository(octokit, repoName) {
       rulesets.push(rulesetData);
     }
   } catch (error) {
-    // Skip repositories without rulesets
-    return;
+    // ignore errors
+  }
+
+  try {
+    const repoRulesets = await octokit.rest.repos.getRepoRulesets({
+      owner: org,
+      repo: repoName,
+      includes_parents: true,
+    });
+
+    repoRulesets.data = repoRulesets.data.filter(
+      (ruleset) =>
+        ruleset.target === "branch" &&
+        ruleset.enforcement === "active" &&
+        !ruleset.name.startsWith("policy-bot:")
+    );
+
+    for (let i = 0; i < repoRulesets.data.length; ++i) {
+      const rulesetResponse = await octokit.rest.repos.getRepoRuleset({
+        owner: org,
+        repo: repoName,
+        ruleset_id: repoRulesets.data[i].id,
+      });
+
+      delete rulesetResponse.data.id;
+      delete rulesetResponse.data.source;
+      delete rulesetResponse.data.source_type;
+      delete rulesetResponse.data.created_at;
+      delete rulesetResponse.data.updated_at;
+      delete rulesetResponse.data.node_id;
+      delete rulesetResponse.data.current_user_can_bypass;
+      delete rulesetResponse.data._links;
+
+      rulesets.push(rulesetResponse.data);
+    }
+  } catch (error) {
+    // ignore errors
   }
 
   if (rulesets.length < 1) {
@@ -143,14 +178,14 @@ async function fetchRepoSettings() {
 
 async function main() {
   // replace the file at orgSettingsPath with the one bundled with this npm package
-  const yamlData = fs.readFileSync(packageSettingsPath, 'utf8');
+  const yamlData = fs.readFileSync(packageSettingsPath, "utf8");
   fs.writeFileSync(orgSettingsPath, yamlData, "utf8");
   await fetchRepoSettings();
 }
 
 main();
 
-function convertBranchProtectionToRuleset(branchProtection) {
+function protectionDataToRuleset(protectionData) {
   const ruleset = {
     name: "Default",
     target: "branch",
@@ -182,17 +217,17 @@ function convertBranchProtectionToRuleset(branchProtection) {
   };
 
   // Rule for required status checks
-  if (branchProtection.required_status_checks) {
+  if (protectionData.required_status_checks) {
     const statusChecksRule = {
       type: "required_status_checks",
       parameters: {
         // strict_required_status_checks_policy:
-        //   branchProtection.required_status_checks.strict,
+        //   protectionData.required_status_checks.strict,
         strict_required_status_checks_policy: true,
         required_status_checks:
-          branchProtection.required_status_checks.checks.map((check) => ({
+          protectionData.required_status_checks.checks.map((check) => ({
             context: check.context,
-            integration_id: check.app_id || 15368,
+            ...(check.app_id ? { integration_id: check.app_id } : {}),
           })),
       },
     };
@@ -200,26 +235,24 @@ function convertBranchProtectionToRuleset(branchProtection) {
   }
 
   // // Rule for pull request reviews
-  // if (branchProtection.required_pull_request_reviews) {
+  // if (protectionData.required_pull_request_reviews) {
   //   const prReviewsRule = {
   //     type: "pull_request",
   //     parameters: {
   //       required_approving_review_count: 0,
   //       dismiss_stale_reviews_on_push:
-  //         branchProtection.required_pull_request_reviews.dismiss_stale_reviews,
+  //         protectionData.required_pull_request_reviews.dismiss_stale_reviews,
   //       require_code_owner_review:
-  //         branchProtection.required_pull_request_reviews
+  //         protectionData.required_pull_request_reviews
   //           .require_code_owner_reviews,
   //       require_last_push_approval:
-  //         branchProtection.required_pull_request_reviews
+  //         protectionData.required_pull_request_reviews
   //           .require_last_push_approval,
   //       required_review_thread_resolution: false, // Set as needed
   //     },
   //   };
   //   ruleset.rules.push(prReviewsRule);
   // }
-
-  // Add other rules based on branchProtection object as needed
 
   return ruleset;
 }
