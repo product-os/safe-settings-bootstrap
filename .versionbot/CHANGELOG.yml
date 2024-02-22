@@ -1,4 +1,17 @@
 - commits:
+    - subject: Process existing rulesets
+      hash: 881ae9b070cef81f3fe30d736c105fb701633910
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.5
+  title: ""
+  date: 2024-02-22T18:55:47.255Z
+- commits:
     - subject: Default to GitHub Actions integration ID when app_id is null
       hash: a382925ea0b4280cc1d503d9ef8430ffd322fb91
       body: |
