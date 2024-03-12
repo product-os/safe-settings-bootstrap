@@ -1,4 +1,19 @@
 - commits:
+    - subject: Do not set integration id when converting to rulesets
+      hash: f8c65211a2267ce454aa5203bf7861af63a16ff0
+      body: |
+        If the integration id is a GHA and it hasn't run recently,
+        the ruleset will fail to be applied.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.7
+  title: ""
+  date: 2024-03-12T13:14:18.650Z
+- commits:
     - subject: Do not filter existing rulesets
       hash: 79637e3f2f0900f694e0984688d42794b971b900
       body: ""
