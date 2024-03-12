@@ -224,7 +224,6 @@ function protectionDataToRuleset(protectionData) {
         required_status_checks:
           protectionData.required_status_checks.checks.map((check) => ({
             context: check.context,
-            ...(check.app_id ? { integration_id: check.app_id } : {}),
           })),
       },
     };

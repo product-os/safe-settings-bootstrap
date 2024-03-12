@@ -7,11 +7,12 @@ repository:
   allow_auto_merge: true
   delete_branch_on_merge: true
 
-# disable branch protection for default branch
-# and use rulesets to enforce policies
-branches:
-  - name: default
-    protection: null
+# TODO:
+# # disable branch protection for default branch
+# # and use rulesets to enforce policies
+# branches:
+#   - name: default
+#     protection: null
 
 # rulesets can have exceptions for flowzone-app to bypass policies
 # https://github.com/github/safe-settings/blob/main-enterprise/docs/sample-settings/org-ruleset.yml
