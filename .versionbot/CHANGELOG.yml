@@ -1,4 +1,18 @@
 - commits:
+    - subject: disable branch protection for default branch
+      hash: b533109539ddf0f88a91a21f6211638a9c58c557
+      body: |
+        rulesets are used and we don't want duplicate rules
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.8
+  title: ""
+  date: 2024-03-13T12:58:56.643Z
+- commits:
     - subject: Do not set integration id when converting to rulesets
       hash: f8c65211a2267ce454aa5203bf7861af63a16ff0
       body: |
