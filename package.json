@@ -1,6 +1,6 @@
 {
   "name": "safe-settings-bootstrap",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Bootstrap organization-level safe-settings manifests",
   "private": false,
   "main": "index.js",
@@ -35,6 +35,6 @@
     "yaml": "^2.3.4"
   },
   "versionist": {
-    "publishedAt": "2024-07-01T01:19:05.077Z"
+    "publishedAt": "2024-07-08T01:23:42.939Z"
   }
 }
