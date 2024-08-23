@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency rimraf to v6
+      hash: 14bf1317df9218eedc5323b3050c6bd68d8a12f4
+      body: |
+        Update rimraf from 5.0.10 to 6.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 0.0.31
+  title: ""
+  date: 2024-08-23T19:01:24.517Z
+- commits:
     - subject: Update dependency octokit to v4
       hash: ba4a373d805bcff1c7ab0b5ea63a4d6e4671d5ab
       body: |
