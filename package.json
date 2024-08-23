@@ -3,14 +3,15 @@
   "version": "0.0.31",
   "description": "Bootstrap organization-level safe-settings manifests",
   "private": false,
-  "main": "index.js",
-  "bin": "index.js",
+  "main": "index.mjs",
+  "bin": "index.mjs",
+  "type": "module",
   "files": [
     "assets/settings.yml"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "start": "npm run clean && node index.js",
+    "start": "npm run clean && node index.mjs",
     "clean": "rimraf .github/repos/"
   },
   "repository": {
@@ -29,8 +30,7 @@
   "homepage": "https://github.com/product-os/safe-settings-bootstrap#readme",
   "dependencies": {
     "dotenv": "^16.3.1",
-    "octokit": "^4.0.0",
-    "probot": "^13.0.2",
+    "octokit": "^4.0.2",
     "rimraf": "^6.0.0",
     "yaml": "^2.3.4"
   },

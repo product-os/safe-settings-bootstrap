@@ -1,18 +1,16 @@
 #!/usr/bin/env node
-require("dotenv").config();
-const { Probot, ProbotOctokit } = require("probot");
-const { throttling } = require("@octokit/plugin-throttling");
-const yaml = require("yaml");
-const fs = require("fs");
-const path = require("path");
+import dotenv from "dotenv";
+dotenv.config();
+import { Octokit } from "octokit";
+import yaml from "yaml";
+import fs from "fs";
+import path from "path";
 
 // Load the GitHub Personal Access Token and organization name from environment variables
 const token = process.env.GITHUB_TOKEN;
 const org = process.env.ORG_NAME;
 const specificRepo = process.env.SPECIFIC_REPO; // Optionally set this to run on a single repo
 const reposDir = path.join(process.cwd(), ".github", "repos");
-const orgSettingsPath = path.join(process.cwd(), ".github", "settings.yml");
-const packageSettingsPath = path.join(__dirname, "assets", "settings.yml");
 
 // https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository#using-fnmatch-syntax
 const protectedBranches = [
@@ -28,36 +26,10 @@ const protectedBranches = [
   }
 ];
 
-// Apply throttling plugin to Octokit
-const ThrottledOctokit = ProbotOctokit.plugin(throttling);
+// Initialize Octokit with the GitHub token
+const octokit = new Octokit({ auth: token });
 
-// Initialize a Probot instance with a custom Octokit class
-const probot = new Probot({
-  appId: 12345, // Dummy App ID, not used in PAT authentication
-  githubToken: token,
-  Octokit: ThrottledOctokit.defaults({
-    auth: `token ${token}`,
-    throttle: {
-      onRateLimit: (retryAfter, options) => {
-        console.warn(
-          `Request quota exhausted for request ${options.method} ${options.url}`
-        );
-        if (options.request.retryCount === 0) {
-          // only retries once
-          console.log(`Retrying after ${retryAfter} seconds!`);
-          return true;
-        }
-      },
-      onSecondaryRateLimit: (_, options) => {
-        console.warn(
-          `Secondary rate limit hit for request ${options.method} ${options.url}`
-        );
-      },
-    },
-  }),
-});
-
-async function processRepository(octokit, repoName) {
+async function processRepository(repoName) {
   let rulesets = [];
   let branches = [];
 
@@ -256,14 +228,13 @@ async function processRepository(octokit, repoName) {
 }
 
 async function fetchRepoSettings() {
-  const octokit = await probot.auth();
   if (!fs.existsSync(reposDir)) {
     fs.mkdirSync(reposDir);
   }
 
   if (specificRepo) {
     // Process a specific repository
-    await processRepository(octokit, specificRepo);
+    await processRepository(specificRepo);
   } else {
     // Process all repositories in the organization
     for await (const response of octokit.paginate.iterator(
@@ -274,7 +245,7 @@ async function fetchRepoSettings() {
       }
     )) {
       for (const repo of response.data) {
-        await processRepository(octokit, repo.name);
+        await processRepository(repo.name);
       }
     }
   }
