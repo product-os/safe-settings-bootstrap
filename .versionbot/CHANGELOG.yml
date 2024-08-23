@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency octokit to v4
+      hash: ba4a373d805bcff1c7ab0b5ea63a4d6e4671d5ab
+      body: |
+        Update octokit from 3.2.1 to 4.0.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 0.0.30
+  title: ""
+  date: 2024-08-23T18:47:18.785Z
+- commits:
     - subject: Process ESR branch protection into rulesets
       hash: b1b856915aef01be914ea8965573d56348dd4af4
       body: ""
