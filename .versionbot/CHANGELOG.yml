@@ -1,4 +1,17 @@
 - commits:
+    - subject: Process ESR branch protection into rulesets
+      hash: b1b856915aef01be914ea8965573d56348dd4af4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.29
+  title: ""
+  date: 2024-08-23T16:44:51.230Z
+- commits:
     - subject: Lock file maintenance
       hash: e70ba743bbbb47c54e87d6916668b525bf95c893
       body: |
