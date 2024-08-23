@@ -1,4 +1,20 @@
 - commits:
+    - subject: Switch to ES modules and use octokit directly
+      hash: e65ef971588259d8f4bbe5a506709a2a4d3dafb4
+      body: |
+        Probot was struggling to use octokit with ESM
+        modules but we didn't really need the extra
+        framework of probot anyway.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.32
+  title: ""
+  date: 2024-08-23T22:25:23.264Z
+- commits:
     - subject: Update dependency rimraf to v6
       hash: 14bf1317df9218eedc5323b3050c6bd68d8a12f4
       body: |
