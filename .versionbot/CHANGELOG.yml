@@ -1,4 +1,21 @@
 - commits:
+    - subject: Mirror current branch protections and rulesets to file
+      hash: 911b6c9c6d40711e09417d7fd314b58d4f8afe56
+      body: |
+        Skip any modifications and cleanup of legacy checks and
+        just write the current repository settings to file.
+
+        This allows methodical cleanup in future PRs.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.33
+  title: ""
+  date: 2024-08-24T00:15:00.182Z
+- commits:
     - subject: Switch to ES modules and use octokit directly
       hash: e65ef971588259d8f4bbe5a506709a2a4d3dafb4
       body: |
