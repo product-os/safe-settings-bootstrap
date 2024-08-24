@@ -6,9 +6,6 @@
   "main": "index.mjs",
   "bin": "index.mjs",
   "type": "module",
-  "files": [
-    "assets/settings.yml"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "start": "npm run clean && node index.mjs",
@@ -29,6 +26,7 @@
   },
   "homepage": "https://github.com/product-os/safe-settings-bootstrap#readme",
   "dependencies": {
+    "@octokit/plugin-throttling": "^9.3.1",
     "dotenv": "^16.3.1",
     "octokit": "^4.0.2",
     "rimraf": "^6.0.0",
