@@ -1,4 +1,17 @@
 - commits:
+    - subject: Add handling for required reviewers on branch protection
+      hash: 5cfcaae1a218a3d4c6cf4620a792f6afa348518c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 0.0.35
+  title: ""
+  date: 2024-08-27T14:20:07.468Z
+- commits:
     - subject: Lock file maintenance
       hash: ea7c87f45a443f87b5a9061c5e1dd6ca9903fc22
       body: |
