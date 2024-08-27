@@ -22,18 +22,21 @@ function branchRuleToNewBranch(query, defaultBranch) {
       enforce_admins: query.isAdminEnforced,
       required_pull_request_reviews: null,
       restrictions: null,
-      required_status_checks: {
-        strict: true,
-        contexts: [],
-      },
+      required_status_checks: null,
     },
   };
 
+  if (query.requiresApprovingReviews) {
+    branchData.protection.required_pull_request_reviews = {
+      required_approving_review_count: query.requiredApprovingReviewCount,
+    };
+  }
+
   if (query.requiresStatusChecks) {
-    branchData.protection.required_status_checks.strict =
-      query.requiresStrictStatusChecks;
-    branchData.protection.required_status_checks.contexts =
-      query.requiredStatusCheckContexts;
+    branchData.protection.required_status_checks = {
+      strict: query.requiresStrictStatusChecks,
+      contexts: query.requiredStatusCheckContexts
+    };
   }
 
   return branchData;
