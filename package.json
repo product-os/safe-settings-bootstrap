@@ -28,7 +28,7 @@
   "dependencies": {
     "@octokit/plugin-throttling": "^9.3.1",
     "dotenv": "^16.3.1",
-    "octokit": "^4.0.2",
+    "octokit": "^5.0.0",
     "rimraf": "^6.0.0",
     "yaml": "^2.3.4"
   },
