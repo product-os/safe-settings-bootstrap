@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency yaml to v2.8.3 [SECURITY]
+      hash: 436766ba87da1b8c9e0d8f431b071cb35100ad44
+      body: |
+        Update yaml from 2.8.0 to 2.8.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 0.0.65
+  title: ""
+  date: 2026-03-26T23:01:09.161Z
+- commits:
     - subject: "Add id-token: write permission for NPM OIDC publishing"
       hash: 72a2e71fae4059248111eb431fbd16a6f93e8c1a
       body: ""
