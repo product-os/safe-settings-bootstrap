@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency flowzonify to v0.4.4
+      hash: f011603d40b637834f8f82840a4030f50c94764e
+      body: |
+        Update flowzonify from 0.0.0 to 0.4.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 0.0.66
+  title: ""
+  date: 2026-09-07T13:01:29.641Z
+- commits:
     - subject: Update dependency yaml to v2.8.3 [SECURITY]
       hash: 436766ba87da1b8c9e0d8f431b071cb35100ad44
       body: |
